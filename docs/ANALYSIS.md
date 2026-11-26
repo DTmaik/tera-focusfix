@@ -149,6 +149,6 @@ v115 client nothing matched. So Terarizer does nothing on either of them.
 |---|---|---|---|
 | `record-enter` | at RVA `0x19ca95c` (`mov [rbx+4],edx`), NOPs the `call`s at `+4` and `+0x10` ("recorder fills NOPped") | no such recorder; the game-thread hog there is the SetEvent storm → **renderkick** | re-found at `0x1ab21c7` / `0x1ab22bc` → **recorder** |
 | `footik_offscreen` | RVA `0x14b6b4b`: `mov edx,1` → `mov edx,0` | not ported (~2% of game-thread samples) | not ported yet |
-| `secfix` | disables two client checks | left out | left out (the recorder patch works without it) |
+| `secfix` | disables the client's anti-tampering mechanism (not mentioned in its release post) | left out | left out (the recorder patch works without it) |
 | `gc_interval` | `GEngine+0x7c8` = 600 s | **gc_interval**, `GEngine+0x314` | **gc_interval**, `GEngine(0x3093120)+0x7c8` |
 | `gc_timer` | hooks the GC function to log durations | not ported; `gcmon.py` measures from outside | not ported |

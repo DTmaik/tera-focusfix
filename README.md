@@ -142,9 +142,19 @@ tools/                diagnostics used to find all of this
 docs/ANALYSIS.md      how the problems were found, with measurements
 ```
 
+## Anti-tamper protection is not touched
+tera-focusfix does **not** disable, bypass or patch the client's anti-tampering / integrity checks.
+Everything it changes is listed above: DirectInput vtables, one event object's vtable (32-bit),
+one engine setting (both), and the 2-byte recorder jump (64-bit, which the v115 client tolerates
+as-is). If a patch would need the protection switched off on some client build, that patch is
+simply not offered for that build.
+
 ## Comparison with "Terarizer"
-Terarizer is a closed-source 64-bit `dinput8.dll` performance patch with fixed addresses for one
-specific 64-bit client build. Its addresses match neither the 32-bit client nor the v115 client.
+Terarizer is a closed-source 64-bit performance patch with fixed addresses for one specific 64-bit
+client build (Patch 100.02). Its addresses match neither the 32-bit client nor the v115 client.
 This project re-finds the useful parts per client: GC interval and the record-fill patch for v115.
-It leaves out Terarizer's "secfix", which disables two client checks. See
-[docs/ANALYSIS.md](docs/ANALYSIS.md#terarizer) for details.
+
+One important difference: besides the advertised patches, Terarizer also **disables the client's
+anti-tampering mechanism** (its "secfix" part). The release post doesn't mention this; it only
+talks about "keeping the client stable". tera-focusfix deliberately leaves that out (see above).
+See [docs/ANALYSIS.md](docs/ANALYSIS.md#terarizer) for a patch-by-patch comparison.
